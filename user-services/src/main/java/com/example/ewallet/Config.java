@@ -33,7 +33,7 @@ public class Config {
 
         RedisTemplate<String,Object> redisTemplate = new RedisTemplate<>();
 
-        // key
+        // key //serializer
         RedisSerializer<String> redisSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(redisSerializer);
 
@@ -53,7 +53,7 @@ public class Config {
     }
 
     @Bean
-    Properties kafkaPropeties(){
+    Properties kafkaProperties(){
         Properties properties = new Properties();
 
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -64,7 +64,7 @@ public class Config {
     }
 
     ProducerFactory<String,String> getProducerFactory(){
-        return new DefaultKafkaProducerFactory(kafkaPropeties());
+        return new DefaultKafkaProducerFactory(kafkaProperties());
     }
 
     KafkaTemplate<String,String> getKafkaTemplate(){
