@@ -38,6 +38,8 @@ public class UserService {
                 .build();
 
         userRepository.save(user);
+
+        //redis
         saveInCache(user);
 
         // kafka
