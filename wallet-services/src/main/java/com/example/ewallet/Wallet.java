@@ -11,7 +11,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "wallet")
+@Table(name = "wallets")
+
 public class Wallet{
 
     @Id

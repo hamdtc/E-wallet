@@ -1,7 +1,6 @@
 package com.example.ewallet;
 
 import lombok.*;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

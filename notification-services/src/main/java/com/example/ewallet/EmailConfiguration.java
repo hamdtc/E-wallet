@@ -15,7 +15,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import java.util.Properties;
 
 @Configuration
-public class NotificationConfiguration {
+public class EmailConfiguration {
 
     @Bean
     public JavaMailSender getJavaMailSender() {

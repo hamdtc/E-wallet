@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -54,9 +53,9 @@ public class TransactionService {
         JSONObject transactionRequest = objectMapper.readValue(message, JSONObject.class);
 
         String status = (String) transactionRequest.get("status");
-        String transactionid = (String) transactionRequest.get("transactionId");
+        String transactionId = (String) transactionRequest.get("transactionId");
 
-        Transaction transaction = transactionRepository.findByTransactionId(transactionid);
+        Transaction transaction = transactionRepository.findByTransactionId(transactionId);
 
         if(status=="SUCCESS")
             transaction.setStatus(TransactionStatus.SUCCESS);

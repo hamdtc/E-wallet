@@ -1,5 +1,4 @@
 package com.example.ewallet;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONObject;
@@ -10,7 +9,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
-public class NotificationService {
+public class EmailService {
 
     @Autowired
     ObjectMapper objectMapper;

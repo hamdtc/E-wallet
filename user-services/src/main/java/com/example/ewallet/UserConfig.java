@@ -18,7 +18,9 @@ import org.springframework.kafka.core.ProducerFactory;
 import java.util.Properties;
 
 @Configuration
-public class Config {
+public class UserConfig {
+
+
 
     @Bean
     LettuceConnectionFactory getConnection(){

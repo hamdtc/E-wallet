@@ -13,7 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @ToString
 @Builder
-
+@Table(name = "users")
 public class User implements Serializable {
 
     @Id

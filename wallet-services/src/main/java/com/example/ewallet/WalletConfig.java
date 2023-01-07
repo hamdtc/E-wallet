@@ -4,12 +4,45 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.*;
 
 import java.util.Properties;
-
+@Configuration
 public class WalletConfig {
+    @Bean
+    LettuceConnectionFactory getConnection(){
+
+        RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
+        LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(redisStandaloneConfiguration);
+        return lettuceConnectionFactory;
+    }
+
+    @Bean
+    RedisTemplate<String,Object> redisTemplate(){
+
+        RedisTemplate<String,Object> redisTemplate = new RedisTemplate<>();
+
+        // key //serializer
+        RedisSerializer<String> redisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(redisSerializer);
+
+        // value
+        JdkSerializationRedisSerializer jdkSerializationRedisSerializer = new JdkSerializationRedisSerializer();
+        redisTemplate.setValueSerializer(jdkSerializationRedisSerializer);
+        redisTemplate.setHashValueSerializer(jdkSerializationRedisSerializer);
+
+        redisTemplate.setConnectionFactory(getConnection());
+
+        return redisTemplate;
+    }
 
     @Bean
     ObjectMapper objectMapper(){
@@ -17,7 +50,7 @@ public class WalletConfig {
     }
 
     @Bean
-    Properties kafkaPropeties(){
+    Properties kafkaProperties(){
         Properties properties = new Properties();
 
         properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -33,7 +66,7 @@ public class WalletConfig {
 
     @Bean
     ConsumerFactory<String,String> getConsumerFactory(){
-        return new DefaultKafkaConsumerFactory(kafkaPropeties());
+        return new DefaultKafkaConsumerFactory(kafkaProperties());
     }
 
     @Bean
@@ -45,7 +78,7 @@ public class WalletConfig {
 
     @Bean
     ProducerFactory<String,String> getProducerFactory(){
-        return new DefaultKafkaProducerFactory(kafkaPropeties());
+        return new DefaultKafkaProducerFactory(kafkaProperties());
     }
 
     @Bean

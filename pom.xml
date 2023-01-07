@@ -8,7 +8,6 @@
 		<module>wallet-services</module>
 		<module>transaction-services</module>
 		<module>notification-services</module>
-		<module>notification-services</module>
 	</modules>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
