@@ -5,11 +5,14 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Properties;
 
+@Configuration
 public class TransactionConfig {
 
     @Bean
@@ -44,6 +47,10 @@ public class TransactionConfig {
         return concurrentKafkaListenerContainerFactory;
     }
 
+    @Bean
+    RestTemplate getRestTemplate(){
+        return new RestTemplate();
+    }
     @Bean
     ProducerFactory<String,String> getProducerFactory(){
         return new DefaultKafkaProducerFactory(kafkaProperties());
